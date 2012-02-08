@@ -1,0 +1,3 @@
+function n_o = LEN(vec)
+
+n_o=norm(vec);

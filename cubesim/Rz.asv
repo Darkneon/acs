@@ -1,0 +1,5 @@
+function rot_m = Rz(angle)
+
+rot_m = [cos(angle)]
+
+end
