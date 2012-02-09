@@ -146,11 +146,6 @@
 %
 %*******************************************************************************
 
-%*******************************************************************************
-%Mike's Defined Variables
-
-
-%*******************************************************************************
 
 function CUBESIM(action, parameter)
 
@@ -1890,10 +1885,10 @@ elseif strcmp(action, 'eval')|strcmp(action, 'run')
       SR_GS_V = SR_GS*ones(1,length(circle));  	 		%[km]
       LLgs_cir0 = zeros(2*N_GS,length(circle));  		%[rad] GS circle, Elev=0, Slant Range perigee
       LLgs_cirMEL = zeros(2*N_GS,length(circle));		%[rad] GS circle, MEL, Slant Range semi-major axis
-      for k=1:N_GS
-         LLgs_cir0(2*k-1:2*k,:) = identSC([LON_GS(k);LAT_GS(k)], [circle; 0*circle], S_maxp_V);			%[rad]
+     for k=1:N_GS
+        LLgs_cir0(2*k-1:2*k,:) = identSC([LON_GS(k);LAT_GS(k)], [circle; 0*circle], S_maxp_V);			%[rad]
          LLgs_cirMEL(2*k-1:2*k,:) = identSC([LON_GS(k);LAT_GS(k)], [circle; MEL_GS(k)*ones(1,length(circle))], SR_GS_V(k,:));	%[rad]
-      end
+     end
       
                   
       %============================================================
@@ -1904,7 +1899,24 @@ elseif strcmp(action, 'eval')|strcmp(action, 'run')
       waitbar(0.20,WB,'Simulation Progress (Simulink model)');
       %=== Compute Earth magnetic field vector at S/C location ===
       XYZfield_geo = getMagField(XYZsc_geo);
-      alpha = acos(dot(-IJKsc_geo, XYZfield_geo./([1;1;1]*LEN(XYZfield_geo)))); %field angle relative to Nadir
+      
+      %ADDED
+      disp('LEN');
+      LEN(XYZfield_geo);
+      disp('1;1;1');
+      [1;1;1]
+      disp('Argument 1');
+      -IJKsc_geo
+      
+      disp('Argument 2');
+      (XYZfield_geo./([1;1;1]*LEN(XYZfield_geo)))
+      %END
+      
+      
+      
+      %alpha = acos(dot(-IJKsc_geo, (XYZfield_geo./([1;1;1]*LEN(XYZfield_geo))))); %field angle relative to Nadir
+      
+      alpha = acos(dot(-IJKsc_geo, (XYZfield_geo./([1;1;1]*LEN(XYZfield_geo))))); %field angle relative to Nadir
       
       [LLmagpt Rmagpt] = getIntersect(LLsc, Rsc, XYZfield_geo);
       XYZmagtr_geo = LL2XYZ(LLmagpt) * Re;	% 3-D pointing trace

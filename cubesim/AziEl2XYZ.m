@@ -45,18 +45,38 @@ function XYZ = AziEl2XYZ(AziEl, r)
 % $Revision: 1.4 $  $Date: 2007/08/24 10:00:39 $
 
       % Process input args
-      if nargin == 2
-          azimuth = AziEl(1,:)
+      if (nargin == 2)
+          azimuth = AziEl(1,:);
+          disp('Azimuth:');
+          disp(azimuth);
+          
           elevation = AziEl(2,:);
+          disp('Elevation:');
+          disp(elevation);
+          
           range = r;
+          disp('Range:');
+          disp(range);
       else
           disp('invalid arguments');
       end
 
       % Transform the azimuth and convert using Matlab's generic sph2cart
       % Note: use -a instead of pi/2-a if azimuth 0 is Eastward, not Northward
-      for t=1:length(azimuth),
-        XYZ(t) = sph2cart(pi/2-azimuth(t), elevation(t), range(t));
+      
+      %COMMENTED OUT FOR TESTING
+      XYZ = zeros(length(azimuth),3);
+      for (t = 1:length(azimuth)) 
+      %XYZ(t) = sph2cart(pi/2-azimuth(t), elevation(t), range(t));
+      [x_temp,y_temp,z_temp] = sph2cart(pi/2-azimuth(t), elevation(t), range(t));
+      XYZ(t,:) = [x_temp y_temp z_temp];
       end
+%       XYZ = sph2cart((pi/2)-azimuth, elevation, range);
+      
+      disp('Size:');
+      size(XYZ)
+      
+      disp('XYZ');
+      disp(XYZ);
       
   end

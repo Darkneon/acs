@@ -28,8 +28,18 @@ XYZgs_earth = LL2XYZ(LLgs) * Re;
 
 XYZgs2sc_gs = AziEl2XYZ(AziEl, Range);
 ROTgs_earth = Rx(pi)*Ry(-LLgs(2,1)-pi/2)*Rz(LLgs(1,1));
+
+disp('ROTgs_earth^(-1):'); %TEST LINE
 disp(ROTgs_earth^(-1));
-XYZgs2sc_earth = ROTgs_earth^(-1) * XYZgs2sc_gs;
+
+%TEST START
+
+disp('XYZgs2sc_gs :');
+disp(XYZgs2sc_gs);
+disp('END TEST');
+%TEST END
+
+XYZgs2sc_earth = (ROTgs_earth^(-1)) * XYZgs2sc_gs'; %ERROR ON THIS LINE
 
 Xsc_earth =  XYZgs2sc_earth(1,:) + XYZgs_earth(1,1);
 Ysc_earth =  XYZgs2sc_earth(2,:) + XYZgs_earth(2,1);

@@ -47,7 +47,7 @@ function [AziEl range] = XYZ2AziEl(XYZ)
   %try
       % Process input args
 
-      if nargin == 1
+      if (nargin == 1)
           x = XYZ(:,1);
           y = XYZ(:,2);
           z = XYZ(:,3);

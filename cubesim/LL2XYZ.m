@@ -21,20 +21,26 @@
 
 wgs_84_parameters;
 deg2rad = pi/180;
+
 %   Compute East-West Radius of curvature at current position
 [r,c]=size(mat);
 for k=1:c
-    for p=1:length(mat)
     R_E = R_0/(sqrt(1 - (e*sin(deg2rad*mat(2,k))^2)));
-
-    %   Compute ECEF coordinates
-if(exist('alt','var') == 0)
-    alt = zeros(1000);
-end
     
-    p_e(1,k) = (R_E + alt(p))*cos(deg2rad*mat(2,k)*cos(deg2rad*mat(1,k)));
-    p_e(2,k) = (R_E + alt(p))*cos(deg2rad*mat(2,k))*sin(deg2rad*mat(1,k));
-    p_e(3,k) = ((1 - e^2)*R_E + alt(p))*sin(deg2rad*mat(2,k));
+    if(exist('alt','var') == 0)
+         %   Compute ECEF coordinates
+        p_e(1,k) = (R_E)*cos(deg2rad*mat(2,k)*cos(deg2rad*mat(1,k)));
+        p_e(2,k) = (R_E)*cos(deg2rad*mat(2,k))*sin(deg2rad*mat(1,k));
+        p_e(3,k) = ((1 - e^2)*R_E)*sin(deg2rad*mat(2,k));
+    
+    else,
+        for p=1;length(alt),
+            
+             %   Compute ECEF coordinates
+            p_e(1,k) = (R_E + alt(p))*cos(deg2rad*mat(2,k)*cos(deg2rad*mat(1,k)));
+            p_e(2,k) = (R_E + alt(p))*cos(deg2rad*mat(2,k))*sin(deg2rad*mat(1,k));
+            p_e(3,k) = ((1 - e^2)*R_E + alt(p))*sin(deg2rad*mat(2,k));
+        end
     end
 end
 %===========================================================%

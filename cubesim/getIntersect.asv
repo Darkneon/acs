@@ -43,11 +43,10 @@ end
 
 disp('size of IJKsc');
 disp(size(IJKsc));
-disp(IJKsc);
-disp('size of Vtg');
+disp('size of Vtg')
 disp(size(Vtg));
-disp(Vtg)
 
-%XYZtg = [Rsc;Rsc;Rsc;].*IJKsc + [Rtg;Rtg;Rtg;].*Vtg;
-XYZtg = [Rsc;Rsc;Rsc;]*IJKsc + [Rtg;Rtg;Rtg;]*Vtg;
+for k=1:length(IJKsc),
+    XYZtg(:,k) = [Rsc Rsc Rsc].*IJKsc(:,k) + [Rtg Rtg Rtg].*Vtg(:,k);
+end
 LLtg = XYZ2LL(XYZtg);
