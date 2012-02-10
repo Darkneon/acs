@@ -35,6 +35,8 @@ Zgs2sc_earth =  XYZsc_earth(3,:) - XYZgs_earth(3,1);
 XYZgs2sc_earth = [Xgs2sc_earth; Ygs2sc_earth; Zgs2sc_earth];	%Earth referential
 
 Range = LEN(XYZgs2sc_earth);
+disp('size of the range');
+disp(size(Range));
 
 ROTgs_earth = Rx(pi)*Ry(-LLgs(2,1)-pi/2)*Rz(LLgs(1,1));
 XYZgs2sc_gs = ROTgs_earth * XYZgs2sc_earth;        		%G/S referential

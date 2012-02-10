@@ -1794,8 +1794,6 @@ elseif strcmp(action, 'eval')|strcmp(action, 'run')
       
       LocalDisplay(' Ephemeris ', 'add')      
       XYZsc_geo = getEphemeris(ElementStruct,Cb,t_VE);		%Propagate orbit elements
-      
-      %this is a problem.
       IJKsc_geo = XYZsc_geo./([1;1;1]*LEN(XYZsc_geo));
       
       %============================================================
@@ -1917,7 +1915,7 @@ elseif strcmp(action, 'eval')|strcmp(action, 'run')
       
       %alpha = acos(dot(-IJKsc_geo, (XYZfield_geo./([1;1;1]*LEN(XYZfield_geo))))); %field angle relative to Nadir
       
-      %alpha = acos(dot(-IJKsc_geo, (XYZfield_geo./([1;1;1]*LEN(XYZfield_geo))))); %field angle relative to Nadir
+      alpha = acos(dot(-IJKsc_geo, (XYZfield_geo./([1;1;1]*LEN(XYZfield_geo))))); %field angle relative to Nadir
       
       [LLmagpt Rmagpt] = getIntersect(LLsc, Rsc, XYZfield_geo);
       XYZmagtr_geo = LL2XYZ(LLmagpt) * Re;	% 3-D pointing trace

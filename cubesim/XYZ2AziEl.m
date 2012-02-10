@@ -46,16 +46,30 @@ function [AziEl range] = XYZ2AziEl(XYZ)
 
   %try
       % Process input args
-
+      
+      disp('size of XYZ')
+      disp(size(XYZ));
+      
       if (nargin == 1)
-          x = XYZ(:,1);
-          y = XYZ(:,2);
-          z = XYZ(:,3);
+          
+          for t=1:length(XYZ),
+            x = XYZ(1,t);
+            y = XYZ(2,t);
+            z = XYZ(3,t);
+            
+            % Convert using Matlab's generic cart2sph
+            [AziEl(1,t),AziEl(2,t),range(t)] = cart2sph(x,y,z);
+            
+          end
       else
           disp('invalid arguments');
       end
-
-      % Convert using Matlab's generic cart2sph
-      [AziEl(1,:),AziEl(2,:),r] = cart2sph(x,y,z);
+      
+      disp('size of x')
+      disp(size(z));
+      disp('size of y')
+      disp(size(y));
+      disp('size of z')
+      disp(size(z));
 
   end
