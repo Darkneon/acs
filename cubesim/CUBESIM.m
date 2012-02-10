@@ -1794,7 +1794,9 @@ elseif strcmp(action, 'eval')|strcmp(action, 'run')
       
       LocalDisplay(' Ephemeris ', 'add')      
       XYZsc_geo = getEphemeris(ElementStruct,Cb,t_VE);		%Propagate orbit elements
-      IJKsc_geo = XYZsc_geo/([1;1;1]*LEN(XYZsc_geo));
+      
+      %this is a problem.
+      IJKsc_geo = XYZsc_geo./([1;1;1]*LEN(XYZsc_geo));
       
       %============================================================
       % Sun Orbital Calculations (Sun viewed as orbiting object around Earth)
@@ -1968,7 +1970,9 @@ elseif strcmp(action, 'eval')|strcmp(action, 'run')
       end
       Nbody_geo = [Xbody_geo; Ybody_geo; -Xbody_geo; -Ybody_geo; Zbody_geo; -Zbody_geo];
       
-      %=== Compute magnet angle relative to Nadir, and pointing trace 
+      %=== Compute magnet angle relative to Nadir, and pointing trace
+      disp('--------->XYZsc<----------');
+      disp(size(XYZsc_geo));
       beta = acos(dot(-IJKsc_geo, umag_geo));
       
       [LLattpt Rattpt] = getIntersect(LLsc, Rsc, umag_geo); %Magnet pointing trace

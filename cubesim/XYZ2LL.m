@@ -56,7 +56,7 @@ U = sqrt(k_5^2 + z^2);
 V = sqrt(k_5^2 + (1 - e^2)*z^2);
 
 %   Calculate Altitude
-alt = U*(1 - (R_P^2/(R_0*V)));
+alt(1,t) = U*(1 - (R_P^2/(R_0*V)));
 
 %   Compute additional values required for computing
 %   latitude
